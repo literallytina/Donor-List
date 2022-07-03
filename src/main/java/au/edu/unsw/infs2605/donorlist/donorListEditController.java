@@ -9,12 +9,14 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 //import java.text.DateFormat;
 //import java.util.Date;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-//mport javafx.scene.control.DatePicker;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ChoiceBox;
 import javafx.collections.FXCollections;
 import java.sql.Connection;
@@ -42,7 +44,7 @@ public class donorListEditController extends App{
     TextField lastNameInput;
     
     @FXML
-    TextField bDayInput;
+    DatePicker bDayInput;
     
     @FXML
     ChoiceBox genderOption;
@@ -133,6 +135,12 @@ public class donorListEditController extends App{
         }
     }
     
+    public static final LocalDate localDate(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
+    }
+    
     public void defaultValue(int Id) throws SQLException, NullPointerException{
         
         Connection conn = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
@@ -148,7 +156,7 @@ public class donorListEditController extends App{
             donorId.setText(String.valueOf(Id));
             firstNameInput.setText(rs.getString(2));
             lastNameInput.setText(rs.getString(3));
-            bDayInput.setText(rs.getString(4)); //need to change format
+            bDayInput.setValue(localDate(rs.getString(4))); 
             genderOption.getSelectionModel().select(rs.getString(5));
             bloodTypeOption.getSelectionModel().select(rs.getString(6));
             emailInput.setText(rs.getString(7));
@@ -175,15 +183,15 @@ public class donorListEditController extends App{
                 + "bloodType = ?, email  = ?, mobileNo = ?, address = ?, notes = ? WHERE donorId = ?"; 
         PreparedStatement st = conn.prepareStatement(updateQuery);
         st.setInt(10, getId());
-        st.setString(1, firstNameInput.getText());
-        st.setString(2, lastNameInput.getText());
-        st.setString(3, bDayInput.getText()); //need to change to date
+        st.setString(1, firstNameInput.getText().trim());
+        st.setString(2, lastNameInput.getText().trim());
+        st.setString(3, bDayInput.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
         st.setString(4, genderOption.getValue().toString());
         st.setString(5, bloodTypeOption.getValue().toString());
-        st.setString(6, emailInput.getText());
-        st.setString(7, mobileNoInput.getText());
-        st.setString(8, addressInput.getText());
-        st.setString(9, notesInput.getText());
+        st.setString(6, emailInput.getText().trim());
+        st.setString(7, mobileNoInput.getText().trim());
+        st.setString(8, addressInput.getText().trim());
+        st.setString(9, notesInput.getText().trim());
         
         st.executeUpdate();
         
@@ -326,7 +334,7 @@ public class donorListEditController extends App{
             donorId.setText(String.valueOf(Id));
             firstName.setText(rs.getString(2));
             lastName.setText(rs.getString(3));
-            bDay.setText(rs.getString(4)); //need to change format
+           // bDay.setText(rs.getString(4)); //need to change format
             gender.setText(rs.getString(5));
             bloodType.setText(rs.getString(6));
             email.setText(rs.getString(7));

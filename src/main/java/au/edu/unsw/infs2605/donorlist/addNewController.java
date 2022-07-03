@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.DatePicker;
 
 /**
  *
@@ -37,7 +39,7 @@ public class addNewController extends App {
     TextField lastNameInput;
     
     @FXML
-    TextField bDayInput;
+    DatePicker bDayInput;
     
     @FXML
     ChoiceBox genderOption;
@@ -128,15 +130,15 @@ public class addNewController extends App {
         PreparedStatement st = conn.prepareStatement(insertStatement);
         
         st.setInt(1, newId);
-        st.setString(2, firstNameInput.getText());
-        st.setString(3, lastNameInput.getText());
-        st.setString(4, bDayInput.getText()); //need to change to date
+        st.setString(2, firstNameInput.getText().trim());
+        st.setString(3, lastNameInput.getText().trim());
+        st.setString(3, bDayInput.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
         st.setString(5, genderOption.getValue().toString());
         st.setString(6, bloodTypeOption.getValue().toString());
-        st.setString(7, emailInput.getText());
-        st.setString(8, mobileNoInput.getText());
-        st.setString(9, addressInput.getText());
-        st.setString(10, notesInput.getText());
+        st.setString(7, emailInput.getText().trim());
+        st.setString(8, mobileNoInput.getText().trim());
+        st.setString(9, addressInput.getText().trim());
+        st.setString(10, notesInput.getText().trim());
         st.setInt(11, Integer.parseInt(bloodDonationCount.getText()));
         st.setInt(12, Integer.parseInt(plasmaDonationCount.getText()));
         if (Integer.parseInt(bloodDonationCount.getText()) == 0 && Integer.parseInt(plasmaDonationCount.getText()) == 0){
