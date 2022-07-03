@@ -7,6 +7,7 @@ module au.edu.unsw.infs2605.donorlist {
     requires javafx.controls;
     requires javafx.graphicsEmpty;
     requires javafx.graphics;
+    requires java.sql;
 
     opens au.edu.unsw.infs2605.donorlist to javafx.fxml;
     exports au.edu.unsw.infs2605.donorlist;

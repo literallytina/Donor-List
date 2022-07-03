@@ -1,2 +1,5 @@
 module-info.class
+au/edu/unsw/infs2605/donorlist/donorListDisplayController.class
+au/edu/unsw/infs2605/donorlist/donorListEditController.class
+au/edu/unsw/infs2605/donorlist/addNewController.class
 au/edu/unsw/infs2605/donorlist/App.class
