@@ -13,10 +13,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -38,10 +40,10 @@ public class addNewController extends App {
     TextField bDayInput;
     
     @FXML
-    TextField genderOption;
+    ChoiceBox genderOption;
     
     @FXML
-    TextField bloodTypeOption;
+    ChoiceBox bloodTypeOption;
     
     @FXML
     TextField emailInput;
@@ -129,8 +131,8 @@ public class addNewController extends App {
         st.setString(2, firstNameInput.getText());
         st.setString(3, lastNameInput.getText());
         st.setString(4, bDayInput.getText()); //need to change to date
-        st.setString(5, genderOption.getText());
-        st.setString(6, bloodTypeOption.getText());
+        st.setString(5, genderOption.getValue().toString());
+        st.setString(6, bloodTypeOption.getValue().toString());
         st.setString(7, emailInput.getText());
         st.setString(8, mobileNoInput.getText());
         st.setString(9, addressInput.getText());
@@ -178,6 +180,8 @@ public class addNewController extends App {
     public void initialize() throws SQLException {
         addValueToList();
         donorId.setText(String.valueOf(getNewId()));
+        genderOption.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
+        bloodTypeOption.setItems(FXCollections.observableArrayList("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"));
     }
     
     @FXML

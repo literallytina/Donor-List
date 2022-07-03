@@ -9,15 +9,14 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
+//import java.text.DateFormat;
 //import java.util.Date;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+//mport javafx.scene.control.DatePicker;
 import javafx.scene.control.ChoiceBox;
-import java.lang.ClassNotFoundException;
+import javafx.collections.FXCollections;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,9 +25,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import javafx.scene.control.ListView;
-import javafx.scene.text.TextAlignment;
 /**
  *
  * @author mac
@@ -48,10 +45,10 @@ public class donorListEditController extends App{
     TextField bDayInput;
     
     @FXML
-    TextField genderOption;
+    ChoiceBox genderOption;
     
     @FXML
-    TextField bloodTypeOption;
+    ChoiceBox bloodTypeOption;
     
     @FXML
     TextField emailInput;
@@ -144,13 +141,16 @@ public class donorListEditController extends App{
         st.setInt(1, Id);
         ResultSet rs = st.executeQuery();
         
+        genderOption.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
+        bloodTypeOption.setItems(FXCollections.observableArrayList("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"));
+        
         while (rs.next()){
             donorId.setText(String.valueOf(Id));
             firstNameInput.setText(rs.getString(2));
             lastNameInput.setText(rs.getString(3));
             bDayInput.setText(rs.getString(4)); //need to change format
-            genderOption.setText(rs.getString(5));
-            bloodTypeOption.setText(rs.getString(6));
+            genderOption.getSelectionModel().select(rs.getString(5));
+            bloodTypeOption.getSelectionModel().select(rs.getString(6));
             emailInput.setText(rs.getString(7));
             mobileNoInput.setText(rs.getString(8));
             addressInput.setText(rs.getString(9));
@@ -178,8 +178,8 @@ public class donorListEditController extends App{
         st.setString(1, firstNameInput.getText());
         st.setString(2, lastNameInput.getText());
         st.setString(3, bDayInput.getText()); //need to change to date
-        st.setString(4, genderOption.getText());
-        st.setString(5, bloodTypeOption.getText());
+        st.setString(4, genderOption.getValue().toString());
+        st.setString(5, bloodTypeOption.getValue().toString());
         st.setString(6, emailInput.getText());
         st.setString(7, mobileNoInput.getText());
         st.setString(8, addressInput.getText());
@@ -355,4 +355,6 @@ public class donorListEditController extends App{
         App.setRoot("donorListAdd");
     }
 }
-
+///////////////
+//NOTE: The choice box has been implemented please test and take a look at the code its quite simple! <3
+/////////////

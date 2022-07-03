@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -99,8 +100,8 @@
                               <Insets left="25.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="genderOption" GridPane.columnIndex="1" />
-                        <TextField fx:id="bloodTypeOption" prefHeight="26.0" prefWidth="49.0" GridPane.columnIndex="3" />
+                        <ChoiceBox fx:id="genderOption" prefWidth="150" GridPane.columnIndex="1" />
+                        <ChoiceBox fx:id="bloodTypeOption" prefHeight="26.0" prefWidth="71.0" GridPane.columnIndex="3" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="6.0" layoutY="63.0" prefHeight="30.0" prefWidth="365.0">
