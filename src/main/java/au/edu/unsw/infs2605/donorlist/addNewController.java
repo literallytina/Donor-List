@@ -163,12 +163,16 @@ public class addNewController extends App {
     
     @FXML
     public void bSubtraction2() throws SQLException{
+        if (Integer.parseInt(bloodDonationCount.getText()) != 0){
         bloodDonationCount.setText(String.valueOf(Integer.parseInt(bloodDonationCount.getText()) - 1));
+        }
     }
     
     @FXML
     public void pSubtraction2() throws SQLException{
+        if (Integer.parseInt(plasmaDonationCount.getText()) != 0){
         plasmaDonationCount.setText(String.valueOf(Integer.parseInt(plasmaDonationCount.getText()) - 1));
+        }
     }
     
     public void initialize() throws SQLException {
