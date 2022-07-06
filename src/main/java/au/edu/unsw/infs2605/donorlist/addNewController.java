@@ -132,7 +132,7 @@ public class addNewController extends App {
         st.setInt(1, newId);
         st.setString(2, firstNameInput.getText().trim());
         st.setString(3, lastNameInput.getText().trim());
-        st.setString(3, bDayInput.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
+        st.setString(4, bDayInput.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))); 
         st.setString(5, genderOption.getValue().toString());
         st.setString(6, bloodTypeOption.getValue().toString());
         st.setString(7, emailInput.getText().trim());
